@@ -3,7 +3,9 @@ type refdomain = {
   backlinks : int;
   refpages : int;
   firstSeen <json name="first_seen"> : string;
-  lastVisited <json name="last_visited"> : string;
+  lastVisited <json name="last_visited"> : string wrap <ocaml t="Js.Date.t"
+                              wrap="Js.Date.fromString"
+                              unwrap="Js.Date.toString">;
   domainRating <json name="domain_rating"> : int;
 }
 

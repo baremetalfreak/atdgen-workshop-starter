@@ -73,7 +73,9 @@ let make = _children => {
            ->Array.map(refdomain =>
                <tr>
                  <td> {s(refdomain.refdomain)} </td>
-                 <td> {s(refdomain.firstSeen)} </td>
+                 <td>
+                   {s(refdomain.lastVisited->Js.Date.toLocaleDateString)}
+                 </td>
                </tr>
              )
            ->ReasonReact.array}
