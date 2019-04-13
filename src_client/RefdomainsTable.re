@@ -6,12 +6,12 @@ type state =
   | Init
   | FetchingData
   | Error
-  | DataReady(array(Refdomains.t));
+  | DataReady(array(Refdomains_t.refdomain));
 
 /* Action declaration */
 type action =
   | ComponentMounted
-  | DataFetched(array(Refdomains.t))
+  | DataFetched(array(Refdomains_t.refdomain))
   | DataFetchingFailed(Js.Promise.error);
 
 /* Component template declaration.
@@ -39,10 +39,10 @@ let make = _children => {
           |> then_(response => response |> Window.json())
           |> then_(json =>
                json
-               |> Refdomains.decodeMain
+               |> Refdomains_bs.read_response
                |> (
                  decoded =>
-                   self.send(DataFetched(decoded.refDomains)) |> resolve
+                   self.send(DataFetched(decoded.refdomains)) |> resolve
                )
              )
           |> catch(_error => {

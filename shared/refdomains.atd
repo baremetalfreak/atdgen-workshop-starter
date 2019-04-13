@@ -1,0 +1,12 @@
+type refdomain = {
+  refdomain: string;
+  backlinks : int;
+  refpages : int;
+  firstSeen <json name="first_seen"> : string;
+  lastVisited <json name="last_visited"> : string;
+  domainRating <json name="domain_rating"> : int;
+}
+
+type response = {
+  refdomains: refdomain list <ocaml repr="array">;
+}
