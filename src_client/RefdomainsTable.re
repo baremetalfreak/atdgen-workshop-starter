@@ -1,3 +1,4 @@
+open Belt;
 let (catch, resolve, then_) = Js.Promise.(catch, resolve, then_);
 
 /* State declaration */
@@ -62,14 +63,20 @@ let make = _children => {
     | FetchingData => <p> {s("Fetching data...")} </p>
     | Error =>
       <p> {s("Error while loading data. Check the browser console.")} </p>
-    | DataReady(_refdomains) =>
+    | DataReady(refdomains) =>
       <table>
         <thead>
           <tr> <th> {s("Refdomain")} </th> <th> {s("Backlinks")} </th> </tr>
         </thead>
         <tbody>
-          <tr> <td> {s("foo.com")} </td> <td> {s("3")} </td> </tr>
-          <tr> <td> {s("bar.com")} </td> <td> {s("6")} </td> </tr>
+          {refdomains
+           ->Array.map(refdomain =>
+               <tr>
+                 <td> {s(refdomain.refdomain)} </td>
+                 <td> {s(refdomain.firstSeen)} </td>
+               </tr>
+             )
+           ->ReasonReact.array}
         </tbody>
       </table>
     };
